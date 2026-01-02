@@ -1,0 +1,45 @@
+
+{% extends 'blog/base.html' %}
+
+
+{% block content %}
+<h1>Search</h1>
+
+<form method="GET" action="{% url 'search' %}">
+    <input type="text" name="query" placeholder="Search..." required>
+    <button type="submit">Search</button>
+</form>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+<h1>Search</h1>
+
+<form method="GET">
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
+{% if query %}
+    <h2>Results for "{{ query }}"</h2>
+
+    {% for post in results %}
+        <h3>
+            <a href="{% url 'post_detail' post.slug %}">
+                {{ post.title }}
+            </a>
+        </h3>
+        <p>{{ post.created_at }}</p>
+    {% empty %}
+        <p>No posts found.</p>
+    {% endfor %}
+{% endif %}
